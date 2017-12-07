@@ -21,12 +21,6 @@ namespace ShopQuanAo.Controllers
             return View(sanPhams.ToPagedList(pageNumber, pageSize));
         }
 
-        //        // GET: SanPhams
-        //        public ActionResult Index()
-        //        {
-        //            return View(db.SanPhams.ToList());
-        //        }
-
         // GET: SanPhams/Details/5
         public ActionResult Details(int? id)
         {
