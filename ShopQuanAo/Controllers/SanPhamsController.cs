@@ -1,9 +1,13 @@
-﻿using PagedList;
+﻿using ImageResizer;
+using PagedList;
 using ShopQuanAo.DataContext;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ShopQuanAo.Controllers
@@ -55,12 +59,47 @@ namespace ShopQuanAo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaSP,TenSP,GiaMua,GiaBan,LoaiSP,ChuDe,ThongTin,GioiTinh,NgayNhapHang,HinhAnh")] SanPham sanPham)
+        public ActionResult Create([Bind(Include = "MaSP,TenSP,GiaMua,GiaBan,LoaiSP,ChuDe,ThongTin,GioiTinh,NgayNhapHang")] SanPham sanPham,
+            HttpPostedFileBase HinhAnh)
         {
+
             if (ModelState.IsValid)
             {
-                db.SanPhams.Add(sanPham);
-                db.SaveChanges();
+                //file upload
+                //you can put your existing save code here
+                if (HinhAnh != null && HinhAnh.ContentLength > 0)
+                {
+                    //do whatever you want with the file
+                    //Declare a new dictionary to store the parameters for the image versions.
+                    var versions = new Dictionary<string, string>();
+
+                    var path = Server.MapPath("~/Images/");
+
+                    //Define the versions to generate
+                    versions.Add("small", "maxwidth=200&maxheight=200&format=jpg");
+                    versions.Add("medium", "maxwidth=500&maxheight=500&format=jpg");
+                    versions.Add("large", "maxwidth=700&maxheight=700&format=jpg");
+
+                    //Generate each version
+                    foreach (var suffix in versions.Keys)
+                    {
+                        HinhAnh.InputStream.Seek(0, SeekOrigin.Begin);
+
+                        //Let the image builder add the correct extension based on the output file type
+                        ImageBuilder.Current.Build(
+                            new ImageJob(
+                                HinhAnh.InputStream,
+                                path + suffix + "/" + HinhAnh.FileName[0],
+                                new Instructions(versions[suffix]),
+                                false,
+                                true));
+                    }
+                    //end file upload
+                    sanPham.HinhAnh = HinhAnh.FileName;
+                    db.SanPhams.Add(sanPham);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
