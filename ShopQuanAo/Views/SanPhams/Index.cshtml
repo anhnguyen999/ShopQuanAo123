@@ -1,4 +1,5 @@
-﻿@model PagedList.IPagedList<ShopQuanAo.DataContext.SanPham>
+﻿    
+@model PagedList.IPagedList<ShopQuanAo.DataContext.SanPham>
 @using PagedList.Mvc;
 
 @{
@@ -14,31 +15,31 @@
 <table class="table">
     <tr>
         <th>
-            Ten SP
+            Ten
         </th>
         <th>
-           Gia Mua
+            gia
         </th>
         <th>
-            Gia ban
+            gia ban
         </th>
         <th>
-          Loai SP
+            chu de
         </th>
         <th>
-            Chu de
+            thong tin
         </th>
         <th>
-            Thong tin
+            gioi tinh
         </th>
         <th>
-           Gioi tinh
-        </th>
-        <th>
-           ngay nhap
+            ngay nhap
         </th>
         <th>
             hinh anh
+        </th>
+        <th>
+            ten loai
         </th>
         <th></th>
     </tr>
@@ -53,9 +54,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GiaBan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoaiSP)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ChuDe)
@@ -73,6 +71,9 @@
                 @Html.DisplayFor(modelItem => item.HinhAnh)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.LoaiSanPham.Ten)
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.MaSP }) |
                 @Html.ActionLink("Details", "Details", new { id=item.MaSP }) |
                 @Html.ActionLink("Delete", "Delete", new { id=item.MaSP })
@@ -85,4 +86,6 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+

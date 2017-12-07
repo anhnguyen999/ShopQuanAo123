@@ -29,8 +29,10 @@ namespace ShopQuanAo.DataContext
         public virtual DbSet<ChiTiet_HoaDon> ChiTiet_HoaDon { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
-        public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<SanPham_Size> SanPham_Size { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<LoaiSanPham> LoaiSanPhams { get; set; }
+        public virtual DbSet<SanPham> SanPhams { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

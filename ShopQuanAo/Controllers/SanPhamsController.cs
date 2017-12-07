@@ -17,9 +17,16 @@ namespace ShopQuanAo.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             var sanPhams = (from s in db.SanPhams
-                            select s).OrderByDescending(s => s.MaSP);
+                            select s).OrderByDescending(s => s.MaSP).Include(s => s.LoaiSanPham);
             return View(sanPhams.ToPagedList(pageNumber, pageSize));
         }
+
+        //        // GET: SanPhams
+        //        public ActionResult Index()
+        //        {
+        //            var sanPhams = db.SanPhams.Include(s => s.LoaiSanPham);
+        //            return View(sanPhams.ToList());
+        //        }
 
         // GET: SanPhams/Details/5
         public ActionResult Details(int? id)
@@ -39,6 +46,7 @@ namespace ShopQuanAo.Controllers
         // GET: SanPhams/Create
         public ActionResult Create()
         {
+            ViewBag.LoaiSP = new SelectList(db.LoaiSanPhams, "Ma", "Ten");
             return View();
         }
 
@@ -56,6 +64,7 @@ namespace ShopQuanAo.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.LoaiSP = new SelectList(db.LoaiSanPhams, "Ma", "Ten", sanPham.LoaiSP);
             return View(sanPham);
         }
 
@@ -71,6 +80,7 @@ namespace ShopQuanAo.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.LoaiSP = new SelectList(db.LoaiSanPhams, "Ma", "Ten", sanPham.LoaiSP);
             return View(sanPham);
         }
 
@@ -87,6 +97,7 @@ namespace ShopQuanAo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.LoaiSP = new SelectList(db.LoaiSanPhams, "Ma", "Ten", sanPham.LoaiSP);
             return View(sanPham);
         }
 

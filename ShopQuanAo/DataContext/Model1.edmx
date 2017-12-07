@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShopQuanAoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShopQuanAoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BinhLuan">
           <Key>
             <PropertyRef Name="MaBinhLuan" />
@@ -56,6 +56,13 @@
           <Property Name="SoDienThoai" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="LaAdmin" Type="bit" />
         </EntityType>
+        <EntityType Name="LoaiSanPham">
+          <Key>
+            <PropertyRef Name="Ma" />
+          </Key>
+          <Property Name="Ma" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="MaSP" />
@@ -64,7 +71,7 @@
           <Property Name="TenSP" Type="nvarchar" MaxLength="255" />
           <Property Name="GiaMua" Type="bigint" />
           <Property Name="GiaBan" Type="bigint" />
-          <Property Name="LoaiSP" Type="int" />
+          <Property Name="LoaiSP" Type="tinyint" />
           <Property Name="ChuDe" Type="int" />
           <Property Name="ThongTin" Type="nvarchar" MaxLength="255" />
           <Property Name="GioiTinh" Type="int" />
@@ -87,6 +94,16 @@
           </Key>
           <Property Name="MaSize" Type="int" Nullable="false" />
           <Property Name="Size" Type="nchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_BinhLuan_KH">
           <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
@@ -172,6 +189,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SanPham_LoaiSanPham">
+          <End Role="LoaiSanPham" Type="Self.LoaiSanPham" Multiplicity="0..1" />
+          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSanPham">
+              <PropertyRef Name="Ma" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="LoaiSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SP_Size1">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
           <End Role="SanPham_Size" Type="Self.SanPham_Size" Multiplicity="*" />
@@ -189,9 +218,11 @@
           <EntitySet Name="ChiTiet_HoaDon" EntityType="Self.ChiTiet_HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiSanPham" EntityType="Self.LoaiSanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham_Size" EntityType="Self.SanPham_Size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BinhLuan_KH" Association="Self.FK_BinhLuan_KH">
             <End Role="KhachHang" EntitySet="KhachHang" />
             <End Role="BinhLuan" EntitySet="BinhLuan" />
@@ -220,13 +251,16 @@
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="BinhLuan" EntitySet="BinhLuan" />
           </AssociationSet>
+          <AssociationSet Name="FK_SanPham_LoaiSanPham" Association="Self.FK_SanPham_LoaiSanPham">
+            <End Role="LoaiSanPham" EntitySet="LoaiSanPham" />
+            <End Role="SanPham" EntitySet="SanPham" />
+          </AssociationSet>
           <AssociationSet Name="FK_SP_Size1" Association="Self.FK_SP_Size1">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="SanPham_Size" EntitySet="SanPham_Size" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopQuanAoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -244,7 +278,7 @@
           <Property Name="MaSP" Type="Int32" Nullable="false" />
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="KhachHang" Relationship="Self.FK_BinhLuan_KH" FromRole="BinhLuan" ToRole="KhachHang" />
-          <NavigationProperty Name="SanPham" Relationship="Self.FK_MaSP_BL" FromRole="BinhLuan" ToRole="SanPham" />
+          <NavigationProperty Name="SanPham" Relationship="ShopQuanAoModel.FK_MaSP_BL" FromRole="BinhLuan" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="ChiTiet_HoaDon">
           <Key>
@@ -258,8 +292,8 @@
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
           <Property Name="DonGia" Type="Int32" />
           <NavigationProperty Name="HoaDon" Relationship="Self.FK_ChiTiet_HoaDon_HoaDon" FromRole="ChiTiet_HoaDon" ToRole="HoaDon" />
-          <NavigationProperty Name="SanPham" Relationship="Self.FK_ChiTiet_HoaDon_SanPham" FromRole="ChiTiet_HoaDon" ToRole="SanPham" />
           <NavigationProperty Name="Size" Relationship="Self.FK_ChiTiet_HoaDon_Size" FromRole="ChiTiet_HoaDon" ToRole="Size" />
+          <NavigationProperty Name="SanPham" Relationship="ShopQuanAoModel.FK_ChiTiet_HoaDon_SanPham" FromRole="ChiTiet_HoaDon" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -290,24 +324,6 @@
           <NavigationProperty Name="BinhLuans" Relationship="Self.FK_BinhLuan_KH" FromRole="KhachHang" ToRole="BinhLuan" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_KhachHang" FromRole="KhachHang" ToRole="HoaDon" />
         </EntityType>
-        <EntityType Name="SanPham">
-          <Key>
-            <PropertyRef Name="MaSP" />
-          </Key>
-          <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenSP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="GiaMua" Type="Int64" />
-          <Property Name="GiaBan" Type="Int64" />
-          <Property Name="LoaiSP" Type="Int32" />
-          <Property Name="ChuDe" Type="Int32" />
-          <Property Name="ThongTin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="GioiTinh" Type="Int32" />
-          <Property Name="NgayNhapHang" Type="DateTime" Precision="0" />
-          <Property Name="HinhAnh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BinhLuans" Relationship="Self.FK_MaSP_BL" FromRole="SanPham" ToRole="BinhLuan" />
-          <NavigationProperty Name="ChiTiet_HoaDon" Relationship="Self.FK_ChiTiet_HoaDon_SanPham" FromRole="SanPham" ToRole="ChiTiet_HoaDon" />
-          <NavigationProperty Name="SanPham_Size" Relationship="Self.FK_SP_Size1" FromRole="SanPham" ToRole="SanPham_Size" />
-        </EntityType>
         <EntityType Name="SanPham_Size">
           <Key>
             <PropertyRef Name="MaSP" />
@@ -317,8 +333,8 @@
           <Property Name="MaSize" Type="Int32" Nullable="false" />
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="SoLuongTam" Type="Int32" />
-          <NavigationProperty Name="SanPham" Relationship="Self.FK_SP_Size1" FromRole="SanPham_Size" ToRole="SanPham" />
           <NavigationProperty Name="Size" Relationship="Self.FK_MaSize_S" FromRole="SanPham_Size" ToRole="Size" />
+          <NavigationProperty Name="SanPham" Relationship="ShopQuanAoModel.FK_SP_Size1" FromRole="SanPham_Size" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
@@ -341,18 +357,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MaSP_BL">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="BinhLuan" Type="Self.BinhLuan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
-            </Principal>
-            <Dependent Role="BinhLuan">
-              <PropertyRef Name="MaSP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChiTiet_HoaDon_HoaDon">
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
           <End Role="ChiTiet_HoaDon" Type="Self.ChiTiet_HoaDon" Multiplicity="*" />
@@ -362,18 +366,6 @@
             </Principal>
             <Dependent Role="ChiTiet_HoaDon">
               <PropertyRef Name="MaHD" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChiTiet_HoaDon_SanPham">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="ChiTiet_HoaDon" Type="Self.ChiTiet_HoaDon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
-            </Principal>
-            <Dependent Role="ChiTiet_HoaDon">
-              <PropertyRef Name="MaSP" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -401,18 +393,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SP_Size1">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="SanPham_Size" Type="Self.SanPham_Size" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SanPham">
-              <PropertyRef Name="MaSP" />
-            </Principal>
-            <Dependent Role="SanPham_Size">
-              <PropertyRef Name="MaSP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MaSize_S">
           <End Role="Size" Type="Self.Size" Multiplicity="1" />
           <End Role="SanPham_Size" Type="Self.SanPham_Size" Multiplicity="*" />
@@ -430,23 +410,14 @@
           <EntitySet Name="ChiTiet_HoaDon" EntityType="Self.ChiTiet_HoaDon" />
           <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
           <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
-          <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
           <EntitySet Name="SanPham_Size" EntityType="Self.SanPham_Size" />
           <EntitySet Name="Sizes" EntityType="Self.Size" />
           <AssociationSet Name="FK_BinhLuan_KH" Association="Self.FK_BinhLuan_KH">
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="BinhLuan" EntitySet="BinhLuans" />
           </AssociationSet>
-          <AssociationSet Name="FK_MaSP_BL" Association="Self.FK_MaSP_BL">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="BinhLuan" EntitySet="BinhLuans" />
-          </AssociationSet>
           <AssociationSet Name="FK_ChiTiet_HoaDon_HoaDon" Association="Self.FK_ChiTiet_HoaDon_HoaDon">
             <End Role="HoaDon" EntitySet="HoaDons" />
-            <End Role="ChiTiet_HoaDon" EntitySet="ChiTiet_HoaDon" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChiTiet_HoaDon_SanPham" Association="Self.FK_ChiTiet_HoaDon_SanPham">
-            <End Role="SanPham" EntitySet="SanPhams" />
             <End Role="ChiTiet_HoaDon" EntitySet="ChiTiet_HoaDon" />
           </AssociationSet>
           <AssociationSet Name="FK_ChiTiet_HoaDon_Size" Association="Self.FK_ChiTiet_HoaDon_Size">
@@ -457,15 +428,115 @@
             <End Role="KhachHang" EntitySet="KhachHangs" />
             <End Role="HoaDon" EntitySet="HoaDons" />
           </AssociationSet>
-          <AssociationSet Name="FK_SP_Size1" Association="Self.FK_SP_Size1">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="SanPham_Size" EntitySet="SanPham_Size" />
-          </AssociationSet>
           <AssociationSet Name="FK_MaSize_S" Association="Self.FK_MaSize_S">
             <End Role="Size" EntitySet="Sizes" />
             <End Role="SanPham_Size" EntitySet="SanPham_Size" />
           </AssociationSet>
+          <EntitySet Name="LoaiSanPhams" EntityType="ShopQuanAoModel.LoaiSanPham" />
+          <EntitySet Name="SanPhams" EntityType="ShopQuanAoModel.SanPham" />
+          <EntitySet Name="sysdiagrams" EntityType="ShopQuanAoModel.sysdiagram" />
+          <AssociationSet Name="FK_MaSP_BL" Association="ShopQuanAoModel.FK_MaSP_BL">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="BinhLuan" EntitySet="BinhLuans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChiTiet_HoaDon_SanPham" Association="ShopQuanAoModel.FK_ChiTiet_HoaDon_SanPham">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="ChiTiet_HoaDon" EntitySet="ChiTiet_HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SanPham_LoaiSanPham" Association="ShopQuanAoModel.FK_SanPham_LoaiSanPham">
+            <End Role="LoaiSanPham" EntitySet="LoaiSanPhams" />
+            <End Role="SanPham" EntitySet="SanPhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SP_Size1" Association="ShopQuanAoModel.FK_SP_Size1">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="SanPham_Size" EntitySet="SanPham_Size" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="LoaiSanPham">
+          <Key>
+            <PropertyRef Name="Ma" />
+          </Key>
+          <Property Name="Ma" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPhams" Relationship="ShopQuanAoModel.FK_SanPham_LoaiSanPham" FromRole="LoaiSanPham" ToRole="SanPham" />
+        </EntityType>
+        <EntityType Name="SanPham">
+          <Key>
+            <PropertyRef Name="MaSP" />
+          </Key>
+          <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenSP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GiaMua" Type="Int64" />
+          <Property Name="GiaBan" Type="Int64" />
+          <Property Name="LoaiSP" Type="Byte" />
+          <Property Name="ChuDe" Type="Int32" />
+          <Property Name="ThongTin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="Int32" />
+          <Property Name="NgayNhapHang" Type="DateTime" Precision="0" />
+          <Property Name="HinhAnh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BinhLuans" Relationship="ShopQuanAoModel.FK_MaSP_BL" FromRole="SanPham" ToRole="BinhLuan" />
+          <NavigationProperty Name="ChiTiet_HoaDon" Relationship="ShopQuanAoModel.FK_ChiTiet_HoaDon_SanPham" FromRole="SanPham" ToRole="ChiTiet_HoaDon" />
+          <NavigationProperty Name="LoaiSanPham" Relationship="ShopQuanAoModel.FK_SanPham_LoaiSanPham" FromRole="SanPham" ToRole="LoaiSanPham" />
+          <NavigationProperty Name="SanPham_Size" Relationship="ShopQuanAoModel.FK_SP_Size1" FromRole="SanPham" ToRole="SanPham_Size" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_MaSP_BL">
+          <End Type="ShopQuanAoModel.SanPham" Role="SanPham" Multiplicity="1" />
+          <End Type="ShopQuanAoModel.BinhLuan" Role="BinhLuan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="BinhLuan">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChiTiet_HoaDon_SanPham">
+          <End Type="ShopQuanAoModel.SanPham" Role="SanPham" Multiplicity="1" />
+          <End Type="ShopQuanAoModel.ChiTiet_HoaDon" Role="ChiTiet_HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="ChiTiet_HoaDon">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SanPham_LoaiSanPham">
+          <End Type="ShopQuanAoModel.LoaiSanPham" Role="LoaiSanPham" Multiplicity="0..1" />
+          <End Type="ShopQuanAoModel.SanPham" Role="SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSanPham">
+              <PropertyRef Name="Ma" />
+            </Principal>
+            <Dependent Role="SanPham">
+              <PropertyRef Name="LoaiSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SP_Size1">
+          <End Type="ShopQuanAoModel.SanPham" Role="SanPham" Multiplicity="1" />
+          <End Type="ShopQuanAoModel.SanPham_Size" Role="SanPham_Size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SanPham">
+              <PropertyRef Name="MaSP" />
+            </Principal>
+            <Dependent Role="SanPham_Size">
+              <PropertyRef Name="MaSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -523,22 +594,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SanPhams">
-            <EntityTypeMapping TypeName="ShopQuanAoModel.SanPham">
-              <MappingFragment StoreEntitySet="SanPham">
-                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
-                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
-                <ScalarProperty Name="GiaMua" ColumnName="GiaMua" />
-                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
-                <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
-                <ScalarProperty Name="ChuDe" ColumnName="ChuDe" />
-                <ScalarProperty Name="ThongTin" ColumnName="ThongTin" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="NgayNhapHang" ColumnName="NgayNhapHang" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SanPham_Size">
             <EntityTypeMapping TypeName="ShopQuanAoModel.SanPham_Size">
               <MappingFragment StoreEntitySet="SanPham_Size">
@@ -554,6 +609,41 @@
               <MappingFragment StoreEntitySet="Size">
                 <ScalarProperty Name="MaSize" ColumnName="MaSize" />
                 <ScalarProperty Name="Size1" ColumnName="Size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiSanPhams">
+            <EntityTypeMapping TypeName="ShopQuanAoModel.LoaiSanPham">
+              <MappingFragment StoreEntitySet="LoaiSanPham">
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SanPhams">
+            <EntityTypeMapping TypeName="ShopQuanAoModel.SanPham">
+              <MappingFragment StoreEntitySet="SanPham">
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="NgayNhapHang" ColumnName="NgayNhapHang" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="ThongTin" ColumnName="ThongTin" />
+                <ScalarProperty Name="ChuDe" ColumnName="ChuDe" />
+                <ScalarProperty Name="LoaiSP" ColumnName="LoaiSP" />
+                <ScalarProperty Name="GiaBan" ColumnName="GiaBan" />
+                <ScalarProperty Name="GiaMua" ColumnName="GiaMua" />
+                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ShopQuanAoModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

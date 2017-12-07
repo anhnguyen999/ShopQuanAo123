@@ -9,17 +9,20 @@
         <EntityTypeShape EntityType="ShopQuanAoModel.ChiTiet_HoaDon" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopQuanAoModel.HoaDon" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopQuanAoModel.KhachHang" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopQuanAoModel.SanPham" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopQuanAoModel.SanPham_Size" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopQuanAoModel.Size" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="ShopQuanAoModel.FK_BinhLuan_KH" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopQuanAoModel.FK_MaSP_BL" ManuallyRouted="false" />
         <AssociationConnector Association="ShopQuanAoModel.FK_ChiTiet_HoaDon_HoaDon" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopQuanAoModel.FK_ChiTiet_HoaDon_SanPham" ManuallyRouted="false" />
         <AssociationConnector Association="ShopQuanAoModel.FK_ChiTiet_HoaDon_Size" ManuallyRouted="false" />
         <AssociationConnector Association="ShopQuanAoModel.FK_HoaDon_KhachHang" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopQuanAoModel.FK_SP_Size1" ManuallyRouted="false" />
         <AssociationConnector Association="ShopQuanAoModel.FK_MaSize_S" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShopQuanAoModel.LoaiSanPham" Width="1.5" PointX="8.375" PointY="2.125" />
+        <EntityTypeShape EntityType="ShopQuanAoModel.SanPham" Width="1.5" PointX="10.625" PointY="1" />
+        <EntityTypeShape EntityType="ShopQuanAoModel.sysdiagram" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="ShopQuanAoModel.FK_MaSP_BL" />
+        <AssociationConnector Association="ShopQuanAoModel.FK_ChiTiet_HoaDon_SanPham" />
+        <AssociationConnector Association="ShopQuanAoModel.FK_SanPham_LoaiSanPham" />
+        <AssociationConnector Association="ShopQuanAoModel.FK_SP_Size1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,16 +12,12 @@ namespace ShopQuanAo.DataContext
     using System;
     using System.Collections.Generic;
     
-    public partial class ChiTiet_HoaDon
+    public partial class sysdiagram
     {
-        public int MaHD { get; set; }
-        public int MaSP { get; set; }
-        public int MaSize { get; set; }
-        public int SoLuong { get; set; }
-        public Nullable<int> DonGia { get; set; }
-    
-        public virtual HoaDon HoaDon { get; set; }
-        public virtual Size Size { get; set; }
-        public virtual SanPham SanPham { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

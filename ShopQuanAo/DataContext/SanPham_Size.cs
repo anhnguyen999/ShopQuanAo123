@@ -19,7 +19,7 @@ namespace ShopQuanAo.DataContext
         public Nullable<int> SoLuong { get; set; }
         public Nullable<int> SoLuongTam { get; set; }
     
-        public virtual SanPham SanPham { get; set; }
         public virtual Size Size { get; set; }
+        public virtual SanPham SanPham { get; set; }
     }
 }
