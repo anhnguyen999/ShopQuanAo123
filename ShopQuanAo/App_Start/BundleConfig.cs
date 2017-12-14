@@ -40,6 +40,7 @@ namespace ShopQuanAo
 
 
             bundles.Add(new StyleBundle("~/Content/theme/css").Include(
+               "~/Content/theme/css/bootstrap.css",
                "~/Content/theme/css/bootstrap.min.css",
                "~/Content/theme/css/bootstrap-responsive.min.css",
                "~/Content/theme/css/uniform.css",
