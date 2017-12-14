@@ -6,78 +6,87 @@
     Layout = "~/Views/Shared/_LayoutTheme.cshtml";
 }
 
+<div class="widget-box">
+    <div class="widget-title">
+        <span class="icon"><i class="icon-th"></i></span>
+        <h5>Data table</h5>
+    </div>
+    <div class="widget-content nopadding">
 
-<table class="table table-bordered">
-    <tr>
-        <th>
-            Ten
-        </th>
-        <th>
-            gia
-        </th>
-        <th>
-            gia ban
-        </th>
-        <th>
-            chu de
-        </th>
-        <th>
-            thong tin
-        </th>
-        <th>
-            gioi tinh
-        </th>
-        <th>
-            ngay nhap
-        </th>
-        <th>
-            hinh anh
-        </th>
-        <th>
-            ten loai
-        </th>
-        <th></th>
-    </tr>
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    Ten
+                </th>
+                <th>
+                    gia
+                </th>
+                <th>
+                    gia ban
+                </th>
+                <th>
+                    chu de
+                </th>
+                <th>
+                    thong tin
+                </th>
+                <th>
+                    gioi tinh
+                </th>
+                <th>
+                    ngay nhap
+                </th>
+                <th>
+                    hinh anh
+                </th>
+                <th>
+                    ten loai
+                </th>
+                <th></th>
+            </tr>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenSP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiaMua)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiaBan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChuDe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThongTin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayNhapHang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HinhAnh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoaiSanPham.Ten)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.MaSP }) |
-                @Html.ActionLink("Details", "Details", new { id=item.MaSP }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.MaSP })
-            </td>
-        </tr>
-    }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaMua)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaBan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChuDe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThongTin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GioiTinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayNhapHang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HinhAnh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LoaiSanPham.Ten)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.MaSP }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaSP })
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
 
+    </div>
+</div>
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
