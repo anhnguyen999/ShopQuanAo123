@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace ShopQuanAo
 {
@@ -26,6 +25,31 @@ namespace ShopQuanAo
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            #region GiaoDien
+
+            bundles.Add(new ScriptBundle("~/bundles/theme/theme_js").Include(
+                "~/Scripts/theme/js/jquery.min.js",
+                "~/Scripts/theme/js/jquery.ui.custom.js",
+                "~/Scripts/theme/js/bootstrap.min.js",
+                "~/Scripts/theme/js/jquery.uniform.js",
+                "~/Scripts/theme/js/select2.min.js",
+                "~/Scripts/theme/js/jquery.dataTables.min.js",
+                "~/Scripts/theme/js/maruti.js",
+                "~/Scripts/theme/js/maruti.tables.js"));
+
+
+            bundles.Add(new StyleBundle("~/Content/theme/css").Include(
+               "~/Content/theme/css/bootstrap.min.css",
+               "~/Content/theme/css/bootstrap-responsive.min.css",
+               "~/Content/theme/css/uniform.css",
+               "~/Content/theme/css/select2.css",
+               "~/Content/theme/css/maruti-style.css",
+               "~/Content/theme/css/maruti-media.css"));
+
+            #endregion
+
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

@@ -314,10 +314,16 @@
     <Content Include="Views\SanPhams\Details.cshtml" />
     <Content Include="Views\SanPhams\Edit.cshtml" />
     <Content Include="Views\SanPhams\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutTheme.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\theme\css\" />
+    <Folder Include="Content\theme\images\" />
+    <Folder Include="Content\theme\img\" />
     <Folder Include="Images\" />
+    <Folder Include="Scripts\theme\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

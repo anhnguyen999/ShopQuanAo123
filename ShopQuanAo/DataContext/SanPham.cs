@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace ShopQuanAo.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class SanPham
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +23,7 @@ namespace ShopQuanAo.DataContext
             this.ChiTiet_HoaDon = new HashSet<ChiTiet_HoaDon>();
             this.SanPham_Size = new HashSet<SanPham_Size>();
         }
-    
+
         public int MaSP { get; set; }
         public string TenSP { get; set; }
         public Nullable<long> GiaMua { get; set; }
@@ -30,9 +32,12 @@ namespace ShopQuanAo.DataContext
         public Nullable<int> ChuDe { get; set; }
         public string ThongTin { get; set; }
         public Nullable<int> GioiTinh { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> NgayNhapHang { get; set; }
         public string HinhAnh { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
