@@ -98,12 +98,12 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 @section scripts
 {
     <script>
-        $('.js-delete-product').on("click",
+        $(".js-delete-product").on("click",
             function (e) {
                 e.preventDefault();
                 var link = $(e.target);
-                var r = confirm("Are You Sure!");
-                if (r === true) {
+                var result = confirm("Are You Sure!");
+                if (result === true) {
                     $.ajax({
                         url: "/api/sanphams/" + link.attr("data-product-id"),
                         type: "DELETE",
