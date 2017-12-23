@@ -78,7 +78,9 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }) |
                         @Html.ActionLink("Details", "Details", new { id = item.MaSP }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.MaSP })
+                        <a href="#" class="js-delete-product" data-product-id="@item.MaSP">
+                            Delete
+                        </a>
                     </td>
                 </tr>
             }
@@ -91,3 +93,30 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
+@section scripts
+{
+    <script>
+        $('.js-delete-product').on("click",
+            function (e) {
+                e.preventDefault();
+                var link = $(e.target);
+                var r = confirm("Are You Sure!");
+                if (r === true) {
+                    $.ajax({
+                        url: "/api/sanphams/" + link.attr("data-product-id"),
+                        type: "DELETE",
+                        success: function () {
+                            link.parents("tr").fadeOut(function() {
+                                $(this).remove();
+                            });
+                        },
+                        error: function (request, textStatus, error) {
+                            alert("Something fail " + error);
+                        }
+                    });
+                }
+            });
+    </script>
+}

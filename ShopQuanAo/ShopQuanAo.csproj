@@ -291,7 +291,7 @@
     <Content Include="Images\small\hinh.jpg.jpg" />
     <Content Include="Images\small\m.jpg" />
     <Content Include="Images\small\S.jpg" />
-    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\theme\js\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="DataContext\Model1.edmx">
@@ -312,6 +312,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\theme\js\jquery.magnific-popup.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -359,7 +360,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\theme\images\" />
     <Folder Include="Content\theme\img\" />
-    <Folder Include="Scripts\theme\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
