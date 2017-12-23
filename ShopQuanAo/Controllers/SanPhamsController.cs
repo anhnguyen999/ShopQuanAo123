@@ -1,6 +1,7 @@
 ﻿using ImageResizer;
 using PagedList;
 using ShopQuanAo.DataContext;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -75,6 +76,8 @@ namespace ShopQuanAo.Controllers
 
                     var path = Server.MapPath("~/Images/");
 
+                    Guid imageName = Guid.NewGuid();
+
                     //Define the versions to generate
                     versions.Add("small", "maxwidth=200&maxheight=200&format=jpg");
                     versions.Add("medium", "maxwidth=500&maxheight=500&format=jpg");
@@ -89,13 +92,13 @@ namespace ShopQuanAo.Controllers
                         ImageBuilder.Current.Build(
                             new ImageJob(
                                 HinhAnh.InputStream,
-                                path + suffix + "/" + HinhAnh.FileName[0],
+                                path + suffix + "/" + imageName,
                                 new Instructions(versions[suffix]),
                                 false,
                                 true));
                     }
                     //end file upload
-                    sanPham.HinhAnh = HinhAnh.FileName;
+                    sanPham.HinhAnh = imageName + ".jpg";
                     db.SanPhams.Add(sanPham);
                     db.SaveChanges();
                 }
