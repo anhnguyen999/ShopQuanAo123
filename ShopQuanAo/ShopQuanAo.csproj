@@ -313,6 +313,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\theme\js\jquery.magnific-popup.min.js" />
+    <Content Include="Scripts\theme\js\ProductController.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -36,6 +36,7 @@ namespace ShopQuanAo
                 "~/Scripts/theme/js/select2.min.js",
                 "~/Scripts/theme/js/jquery.dataTables.min.js",
                 "~/Scripts/theme/js/maruti.js",
+                "~/Scripts/theme/js/ProductController.js",
                 "~/Scripts/theme/js/maruti.tables.js"));
 
 
