@@ -1,5 +1,6 @@
-﻿var ProductController = function() {
+﻿var SanPhamController = new Object();
 
+SanPhamController.deleteProduct = function () {
     var deleteProduct = function(e) {
         debugger;
         e.preventDefault();
@@ -30,4 +31,32 @@
     return {
         init: productConstructor
     }
+}();
+
+SanPhamController.addProduct = function () {
+
+    var add = function() {
+        $("#createSP").submit(function (e) {
+            e.preventDefault();
+            var sanPham = new Object();
+            sanPham.TenSanPham = $("input[name='txtTenSanPham']").val();
+            sanPham.GiaSanPham = $("input[name='txtGiaSP']").val();
+
+            $.post("/api/SanPhams", sanPham)
+                .done(function (data) {
+                    debugger;
+                    alert("Them san pham thanh cong!");
+                    var rowData = "<tr><td>" + sanPham.TenSanPham + "</td><td>" + sanPham.GiaSanPham + "</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+                    $(".table tbody").prepend(rowData);
+                })
+                .fail(function () {
+                    alert("something fail!");
+                });
+        });
+    }
+
+    return {
+        init: add
+    }
+
 }();

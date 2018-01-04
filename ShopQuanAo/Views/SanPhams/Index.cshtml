@@ -42,6 +42,7 @@
     <div class="widget-content nopadding">
 
         <table class="table table-bordered">
+            <thead>
             <tr>
                 <th>
                     Ten
@@ -72,7 +73,8 @@
                 </th>
                 <th></th>
             </tr>
-
+            </thead>
+            <tbody>
             @foreach (var item in Model)
             {
                 <tr>
@@ -112,6 +114,7 @@
                     </td>
                 </tr>
             }
+            </tbody>
 
         </table>
 
@@ -126,27 +129,15 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 @section scripts
 {
     <script>
-        ProductController.init();
+        SanPhamController.deleteProduct.init();
+        SanPhamController.addProduct.init();
+
         $(document).ready(function() {
             $(".create-san-pham").click(function() {
                 $(".create-sanpham-form").toggle();
             });
         });
 
-        $("#createSP").submit(function(e) {
-            e.preventDefault();
-            var sanPham = new Object();
-            sanPham.TenSanPham = $("input[name='txtTenSanPham']").val();
-            sanPham.GiaSanPham = $("input[name='txtGiaSP']").val();
-
-            $.post("/api/SanPhams", sanPham)
-                .done(function() {
-
-                })
-                .fail(function() {
-
-                });
-        });
 
     </script>
 }

@@ -1,9 +1,9 @@
 ﻿namespace ShopQuanAo.Dto
 {
-    public class SanPhamDTO
+    public class SanPhamDto
     {
         public string TenSanPham { get; set; }
 
-        public string GiaSanPham { get; set; }
+        public long GiaSanPham { get; set; }
     }
 }

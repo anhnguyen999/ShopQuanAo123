@@ -23,11 +23,22 @@ namespace ShopQuanAo.Controllers.Apis
         }
 
         [HttpPost]
-        public IHttpActionResult Add(SanPhamDTO sanPham)
+        public IHttpActionResult Add(SanPhamDto sanPham)
         {
 
+            if (sanPham == null)
+                return NotFound();
 
-            return Ok();
+            var newSanPham = new SanPham()
+            {
+                TenSP = sanPham.TenSanPham,
+                GiaMua = sanPham.GiaSanPham
+            };
+
+            db.SanPhams.Add(newSanPham);
+            db.SaveChanges();
+
+            return Ok(newSanPham.MaSP);
         }
 
 
