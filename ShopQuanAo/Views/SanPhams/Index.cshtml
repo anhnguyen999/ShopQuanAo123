@@ -6,6 +6,34 @@
     Layout = "~/Views/Shared/_LayoutTheme.cshtml";
 }
 
+<h2 class="create-san-pham">Them nhanh san pham</h2>
+
+
+<div class="widget-box create-sanpham-form" style="display: none">
+    <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+        <h5>Personal-info</h5>
+    </div>
+    <div class="widget-content nopadding">
+        <form action="#" id="createSP" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <div class="control-group">
+                <label class="control-label">Ten san pham :</label>
+                <div class="controls">
+                    <input type="text" name="txtTenSanPham" class="span11" placeholder="Ten san pham" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">File:</label>
+                <div class="controls">
+                    <input type="text" class="span11" name="txtGiaSP" />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button  type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="widget-box">
     <div class="widget-title">
         <span class="icon"><i class="icon-th"></i></span>
@@ -70,14 +98,14 @@
                         @Html.DisplayFor(modelItem => item.NgayNhapHang)
                     </td>
                     <td>
-                        <img src="/Images/small/@item.HinhAnh" alt="" />
+                        <img src="/Images/small/@item.HinhAnh" alt=""/>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LoaiSanPham.Ten)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.MaSP }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.MaSP }) |
+                        @Html.ActionLink("Edit", "Edit", new {id = item.MaSP}) |
+                        @Html.ActionLink("Details", "Details", new {id = item.MaSP}) |
                         <a href="#" class="js-delete-product" data-product-id="@item.MaSP">
                             Delete
                         </a>
@@ -99,5 +127,26 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 {
     <script>
         ProductController.init();
+        $(document).ready(function() {
+            $(".create-san-pham").click(function() {
+                $(".create-sanpham-form").toggle();
+            });
+        });
+
+        $("#createSP").submit(function(e) {
+            e.preventDefault();
+            var sanPham = new Object();
+            sanPham.TenSanPham = $("input[name='txtTenSanPham']").val();
+            sanPham.GiaSanPham = $("input[name='txtGiaSP']").val();
+
+            $.post("/api/SanPhams", sanPham)
+                .done(function() {
+
+                })
+                .fail(function() {
+
+                });
+        });
+
     </script>
 }

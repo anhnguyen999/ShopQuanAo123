@@ -1,4 +1,5 @@
 ﻿using ShopQuanAo.DataContext;
+using ShopQuanAo.Dto;
 using System.Web.Http;
 
 namespace ShopQuanAo.Controllers.Apis
@@ -20,5 +21,24 @@ namespace ShopQuanAo.Controllers.Apis
 
             return Ok();
         }
+
+        [HttpPost]
+        public IHttpActionResult Add(SanPhamDTO sanPham)
+        {
+
+
+            return Ok();
+        }
+
+
+        //public IHttpActionResult Search(string title)
+        //{
+        //    if (title == null)
+        //        return BadRequest("title null");
+
+        //    var products = db.SanPhams.Where(s => s.TenSP.ToLower().Contains(title.ToLower()));
+
+        //    return Ok(products);
+        //}
     }
 }
