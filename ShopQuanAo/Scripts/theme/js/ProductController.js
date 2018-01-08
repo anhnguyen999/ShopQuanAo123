@@ -1,7 +1,8 @@
 ﻿var SanPhamController = new Object();
 
 SanPhamController.deleteProduct = function () {
-    var deleteProduct = function(e) {
+    var deleteProduct = function (e) {
+        
         debugger;
         e.preventDefault();
         var link = $(e.target);
@@ -43,11 +44,13 @@ SanPhamController.addProduct = function () {
             sanPham.GiaSanPham = $("input[name='txtGiaSP']").val();
 
             $.post("/api/SanPhams", sanPham)
-                .done(function (data) {
+                .done(function (maSanPham) {
                     debugger;
-                    alert("Them san pham thanh cong!");
-                    var rowData = "<tr><td>" + sanPham.TenSanPham + "</td><td>" + sanPham.GiaSanPham + "</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+                    //alert("Them san pham thanh cong!");
+                    var actionLink = "<a href='#' class='js-delete-product' data-product-id="+maSanPham+"> Delete </a>";
+                    var rowData = "<tr><td>" + sanPham.TenSanPham + "</td><td>" + sanPham.GiaSanPham + "</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+actionLink+"</td></tr>";
                     $(".table tbody").prepend(rowData);
+                    SanPhamController.deleteProduct.init();
                 })
                 .fail(function () {
                     alert("something fail!");

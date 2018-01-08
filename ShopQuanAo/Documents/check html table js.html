@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+
+ <table border = 1 id="excelDataTable">
+   <thead>
+     <tr>
+       <th>
+         <input type="checkBox" id="id0">
+       </th>
+       <th>sldkfj</th>
+     </tr>
+   </thead>
+   <tbody>
+     <tr>
+       <td>   <input type="checkbox"></td>
+       <td>sdkjf</td>
+     </tr>
+     <tr>
+       <td>   <input type="checkbox"></td>
+       <td>sdkjf</td>
+     </tr>
+     <tr>
+       <td>   <input type="checkbox"></td>
+       <td>sdkjf</td>
+     </tr>
+   </tbody>
+  </table>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script>
+     // First checkbox changes all the others
+  $('#id0').change(function(){
+   
+  var isChecked = $(this).is(':checked');
+  $('#excelDataTable input[type=checkbox]').prop('checked', isChecked);
+  })
+  </script>
+</body>
+</html>

@@ -40,10 +40,14 @@
         <h5>Data table</h5>
     </div>
     <div class="widget-content nopadding">
-
+        <br/>
+        <a href="#" onclick="deleteMultipleProduct()">Delete product</a>
         <table class="table table-bordered">
             <thead>
             <tr>
+                <th>
+                    <input type="checkbox" value="0" id="checkAll" />
+                </th>
                 <th>
                     Ten
                 </th>
@@ -78,6 +82,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        <input type="checkbox" value="@item.MaSP" />
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.TenSP)
                     </td>
@@ -120,6 +127,7 @@
 
     </div>
 </div>
+
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
@@ -138,6 +146,28 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
             });
         });
 
+        function deleteMultipleProduct() {
 
+            $('table tbody input[type=checkbox]').each(function () {
+
+                var link = $(this);
+
+                if (link.is(":checked")) {
+                    $.ajax({
+                        url: "/api/sanphams/" + link.val(),
+                        type: "DELETE",
+                        success: function () {
+                            debugger;
+                            link.parents("tr").fadeOut(function () {
+                                $(this).remove();
+                            });
+                        },
+                        error: function (request, textStatus, error) {
+                            alert("Something fail " + error);
+                        }
+                    });
+                }
+            });
+        }
     </script>
-}
+    }
